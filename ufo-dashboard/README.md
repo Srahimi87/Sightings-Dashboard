@@ -1,83 +1,87 @@
+# UFO Sightings Dashboard
 
-### ** UFO Sightings Dashboard Project **
+A React + TypeScript application for visualising UFO sightings data, grouped by week and displayed in an interactive bar chart.
 
-   Built with  React + TypeScript + Vite and redux Toolkit
-   The chart can navigate through weekly grouped sightings and to be view in bar char.
+## Tech Stack
 
+* React (Vite)
+* TypeScript
+* Redux Toolkit
+* Recharts
+* Tailwind CSS
+* Vitest + React Testing Library
 
-# Features
+---
 
-- Weekly grouped bar chart using Recharts
-- Date range navigation (Previous / Next Week)
-- State management with Redux Toolkit
-- Unit tested with Vitest & Testing Library
-- Styled with Tailwind CSS
-- Graceful handling of missing data
-- Component-based architecture
+## Features
 
-The Vite dev server is avaiable at http://localhost:5173/
+* Weekly aggregation of sightings data
+* Interactive navigation between weeks
+* Bar chart visualisation using Recharts
+* Centralised state management with Redux Toolkit
+* Derived data handled via selectors (clean separation of concerns)
+* Loading and error state handling
+* Responsive UI for different screen sizes
+* Unit and component testing
 
-Following as: 
+---
 
-# Installation
-  cd ufo-dashboard
-  npm install
-  npm start
+## Architecture Overview
 
-# Run tests: 
-  npm test
+The application follows a clear separation of responsibilities:
 
+* **API Layer** – Fetches raw sightings data
+* **Redux Slice** – Stores normalised data and UI state (e.g. current week index)
+* **Selectors** – Handle all data transformation (grouping by week, chart formatting)
+* **Components** – Focus purely on presentation
 
-## References:
- This project was built using a combination of modern frontend tools and carefully selected resources. Below are the key references that guided me to built of the UFO Sightings Dashboard:
-# Tailwind CSS
-  I decided to use Tailwind CSS for UFO Sightings Dashboard. It gives me a clean design and works beautifully with charting libraries and React components.
-  [Tailwind Play ](https://play.tailwindcss.com/)
-  [Install Tailwind CSS with Create React App - Tailwind CSS](https://v3.tailwindcss.com/docs/guides/create-react-app)  version 3.4.1
+This approach keeps components lightweight and ensures that business logic is centralised and reusable.
 
-# React and Redux Toolkit
-https://redux.js.org/introduction/installation/
+---
 
-# Recharts 
-  https://recharts.org/en-US/api/BarChart
-  https://www.geeksforgeeks.org/reactjs/create-a-bar-chart-using-recharts-in-reactjs/
+## Key Improvements (Based on Feedback)
 
-# Group sightings by week 
-  I have used the date-fns library to format dates into a readable form, calculate the start and end of each week, 
-  for a day = 24 * 60 * 60 * 1000 = 86,400,000 milliseconds 
-  Adds 6 * 86,400,000 milliseconds (which = 6 days) to get Sunday of that week
-  
-  and group the UFO sightings by each day of the week to makes it easier to work with dates in JavaScript.
-  https://date-fns.org/v4.1.0/docs/getSeconds
+* Moved date parsing and transformation into the async thunk
+* Removed data manipulation from components
+* Introduced selectors for derived state
+* Centralised week navigation logic in Redux
+* Improved type safety across the application
+* Cleaned up project structure and removed unused files
 
-  I used for loop and push method in with ternanry operator to be able to get all days of the week, the days with data and without data.
-  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push
+---
 
-# Testing Unit & Component Tests
-  Vitest and React Testing Library were used to test components like groupSightingsByWeek and WeekNavigator.
-    Run tests: 
-    npm test
+## Installation
 
-# TypeScript Instead of JavaScript
-  I have used TypeScript via --template typescript.
-  Using TypeScript helped me catch bugs earlier and define types for fetched API responses and component props.
+```bash
+cd ufo-dashboard
+npm install
+npm run dev
+```
 
-# Loading & Error States
-  I have used loaders while fetching data, and show a message (“Failed to fetch sightings”) on failure.
-  
-# Responsive layout that works on smaller screens.
-  This dashboard is fully responsive and optimized for different screen sizes.
-  When the window is resized or minimized, the layout adjusts gracefully.
-  Users can scroll vertically to access content (like charts and navigation) even on smaller screens.
-  
-# State and Navigation in Main App 
-  including as:
-  Fetching the data 
-  Determining which week to show 
-  Navigating between weeks using "Previous" and "Next" buttons
-   BY using useEffect Hook to fetch UFO sightings from the API. https://legacy.reactjs.org/docs/hooks-effect.html
-   BY considering which week shows on chart and apply  enable/disable on buttons, Button disabling is handled via currentWeekIndex.
-   update the currentWeekStart state so the user can move between weeks. 
-   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toDateString
-   
-    
+App runs at: http://localhost:5173/
+
+---
+
+## Running Tests
+
+```bash
+npm test
+```
+
+---
+
+## Notes & Future Improvements
+
+* Explore RTK Query to simplify API handling and caching
+* Add more comprehensive test coverage (selectors & reducers)
+* Improve accessibility of chart components
+* Consider migrating to Next.js for SSR and routing
+
+---
+
+## References
+
+* Redux Toolkit: https://redux.js.org/
+* Recharts: https://recharts.org/
+* Tailwind CSS: https://tailwindcss.com/
+* date-fns: https://date-fns.org/
